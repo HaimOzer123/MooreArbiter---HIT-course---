@@ -1,0 +1,8 @@
+
+State Machine - |MooreArbiter|currentState
+Name currentState.GRANT_STATE_2 currentState.GRANT_STATE_1 currentState.GRANT_STATE_0 currentState.IDLE_STATE currentState.GRANT_STATE_3 
+currentState.IDLE_STATE 0 0 0 0 0 
+currentState.GRANT_STATE_0 0 0 1 1 0 
+currentState.GRANT_STATE_1 0 1 0 1 0 
+currentState.GRANT_STATE_2 1 0 0 1 0 
+currentState.GRANT_STATE_3 0 0 0 1 1 

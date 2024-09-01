@@ -1,0 +1,51 @@
+module MooreArbiter (
+  input wire CLK,RESET,req0,req1,req2,req3,
+  output reg grant0,grant1,grant2,grant3);
+
+  // Define states
+  typedef enum logic [2:0] {
+    IDLE_STATE,
+    GRANT_STATE_0,
+    GRANT_STATE_1,
+    GRANT_STATE_2,
+    GRANT_STATE_3
+  } state_t;
+
+  // State register
+  reg[state_t] currentState, nextState;
+
+  // Combinational logic for next state and outputs
+  always_comb begin
+    grant0 = (currentState == GRANT_STATE_0);
+    grant1 = (currentState == GRANT_STATE_1);
+    grant2 = (currentState == GRANT_STATE_2);
+    grant3 = (currentState == GRANT_STATE_3);
+
+    // Default next state
+    nextState = currentState;
+
+    // State transitions
+    case (currentState)
+      IDLE_STATE:
+        if (req0) nextState = GRANT_STATE_0;
+        else if (req1) nextState = GRANT_STATE_1;
+        else if (req2) nextState = GRANT_STATE_2;
+        else if (req3) nextState = GRANT_STATE_3;
+      GRANT_STATE_0:
+        nextState = IDLE_STATE;
+      GRANT_STATE_1:
+        nextState = IDLE_STATE;
+      GRANT_STATE_2:
+        nextState = IDLE_STATE;
+      GRANT_STATE_3:
+        nextState = IDLE_STATE;
+    endcase
+  end
+
+  // Sequential logic for state register and synchronous reset
+  always_ff @(posedge CLK or posedge RESET) begin
+    if (RESET) currentState <= IDLE_STATE;
+    else currentState <= nextState;
+  end
+
+endmodule

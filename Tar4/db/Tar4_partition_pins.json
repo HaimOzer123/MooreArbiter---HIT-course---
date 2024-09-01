@@ -1,0 +1,49 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "grant0",
+					"strict" : false
+				},
+				{
+					"name" : "grant1",
+					"strict" : false
+				},
+				{
+					"name" : "grant2",
+					"strict" : false
+				},
+				{
+					"name" : "grant3",
+					"strict" : false
+				},
+				{
+					"name" : "RESET",
+					"strict" : false
+				},
+				{
+					"name" : "req0",
+					"strict" : false
+				},
+				{
+					"name" : "CLK",
+					"strict" : false
+				},
+				{
+					"name" : "req1",
+					"strict" : false
+				},
+				{
+					"name" : "req2",
+					"strict" : false
+				},
+				{
+					"name" : "req3",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

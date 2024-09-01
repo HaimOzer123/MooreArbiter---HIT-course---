@@ -1,0 +1,51 @@
+`timescale 1ns / 1ps
+
+module MooreArbiter_tb;
+
+  // Parameters
+  parameter CLK_PERIOD = 10; // Clock period in ns
+
+  // Signals
+  reg CLK, RESET;
+  reg [3:0] req_sequence [7:0]; // 8-bit array of sequences for req0-req3
+  wire grant0, grant1, grant2, grant3;
+
+  // Instantiate the module
+  MooreArbiter uut (
+    .CLK(CLK),
+    .RESET(RESET),
+    .req0(req_sequence[0]),
+    .req1(req_sequence[1]),
+    .req2(req_sequence[2]),
+    .req3(req_sequence[3]),
+    .grant0(grant0),
+    .grant1(grant1),
+    .grant2(grant2),
+    .grant3(grant3)
+  );
+
+  // Clock generation
+  always begin
+    #CLK_PERIOD/2 CLK = ~CLK;
+  end
+
+  // Initial block
+  initial begin
+    // Initialize signals
+    CLK = 0;
+    RESET = 1; // Active high reset
+    req_sequence = 8'b1100_0011; // Example sequence for req0-req3
+
+    // Apply reset
+    #20 RESET = 0;
+
+    // Apply sequences in a for-loop
+    for (int i = 0; i < 8; i = i + 1) begin
+      #CLK_PERIOD req_sequence = req_sequence >> 1; // Shift right to get the next sequence
+    end
+
+    // Add some additional time for final outputs to stabilize
+    #100 $finish;
+  end
+
+endmodule
